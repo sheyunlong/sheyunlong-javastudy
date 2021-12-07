@@ -14,8 +14,3 @@ public class EurekaServerApplication {
 }
 
 
-//
-//
-//
-
-//22
