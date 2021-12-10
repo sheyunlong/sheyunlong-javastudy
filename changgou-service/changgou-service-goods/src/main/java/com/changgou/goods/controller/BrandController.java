@@ -41,4 +41,15 @@ public class BrandController extends AbstractCoreController<Brand>{
         return new Result<List<Brand>>(true, StatusCode.OK,"根据分类查询品牌列表成功",brandList);
     }
 
+    //用来测试IP的连接数的限流
+    @GetMapping("/test")
+    public Result testConne(){
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return new Result(true,StatusCode.OK,"ok");
+    }
+
 }
