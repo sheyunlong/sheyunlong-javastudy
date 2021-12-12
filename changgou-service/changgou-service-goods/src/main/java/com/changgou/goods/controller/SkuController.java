@@ -3,10 +3,12 @@ package com.changgou.goods.controller;
 import com.changgou.core.AbstractCoreController;
 import com.changgou.goods.pojo.Sku;
 import com.changgou.goods.service.SkuService;
+import entity.Result;
+import entity.StatusCode;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /****
  * @Author:admin
@@ -25,5 +27,13 @@ public class SkuController extends AbstractCoreController<Sku>{
     public SkuController(SkuService  skuService) {
         super(skuService, Sku.class);
         this.skuService = skuService;
+    }
+
+    //feign 专用 根据状态获取sku的列表数据
+    @GetMapping("/status/{status}")
+    public Result<List<Sku>> findByStatus(@PathVariable(name = "status")String status){
+        //select * from tb_sku where status=?
+        List<Sku> skuList =skuService.findByStatus(status);
+        return new Result<List<Sku>>(true, StatusCode.OK,"查询列表条件成",skuList);
     }
 }
